@@ -1,0 +1,118 @@
+extends ../layout 
+
+block content 
+	section.content-header  
+		.container-fluid
+			.row.mb-2
+				.col-sm-6
+					h3 PHÊ DUYỆT ĐƠN ĐĂNG KÍ
+	section.content
+		.container-fluid
+			.row
+				.col-12
+					.card
+						.card-header
+							h4.card-title Danh sách doanh nghiệp chưa được duyệt
+						.card-body
+							table#noapprove.table.table-bordered.table-striped
+								
+								thead
+									tr
+										th.text-center Tên doanh nghiệp
+										th.text-center Cập nhật lần cuối
+										th.text-center Thao tác
+								tbody
+									each registration in listRegistration 
+										if(registration.lock==0)
+											tr 
+												td.text-center=registration.name
+												td.text-center=moment(registration.updatedAt).format("DD/MM/YYYY, hh:mm:ss")
+												td.text-center
+													btn.btn-to-watch.btn.btn-primary.btn-xs(style="margin-right: 15px;" data-email=registration.email) 
+														i.fas.fa-eye &nbsp&nbspXem
+													btn.btn-lock.btn.btn-danger.btn-xs(data-email=registration.email)
+														i.fas.fa-lock  &nbsp&nbspKhóa
+							#watchregistrationmodal.modal.fade(tabindex='-1' role='dialog' aria-labelledby='watchregistrationmodal' aria-hidden='true')
+								.modal-dialog.modal-lg(role='document')
+									.modal-content
+										.modal-header
+											h5.modal-title Danh sách đăng kí
+											button.close(type='button' data-dismiss='modal' aria-label='Close')
+												span(aria-hidden='true') &times;
+										form#tab-approve2(action="/approve/add", method="post")
+											.modal-body
+												input(type="hidden", name="email")
+												table#tab-approve.table.table-bordered.table-striped
+													thead
+														tr
+															th.text-center Tên gian hàng
+															th.text-center Độ ưu tiên
+															th.text-center Duyệt
+													tbody
+														//- each registration in listRegistrationView
+														//- 	tr 
+														//- 		td.text-center=registration.name
+														//- 		td.text-center=registration.priorityNumber
+															td.text-center
+																input(type='checkbox')
+
+												
+											.modal-footer
+												button.btn.btn-secondary(type='button' data-dismiss='modal') Đóng lại
+												button.btn-update.btn.btn-primary(type='submit') Cập nhật
+							#lockregistrationModal.modal.fade(tabindex='-1' role='dialog' aria-labelledby='lockregistrationModal' aria-hidden='true')
+								.modal-dialog(role='document')
+									.modal-content.bg-danger
+										.modal-header
+											h5.modal-title Khóa
+											button.close(type='button' data-dismiss='modal' aria-label='Close')
+												span(aria-hidden='true') &times;
+										form(action="/approve/approved", method="post")
+											.modal-body
+												input(type="hidden", name="email")
+												p Bạn có chắc chắn muốn khóa đăng ký doanh nghiệp này không?
+											.modal-footer
+												button.btn.btn-outline-light(type='button' data-dismiss='modal') Đóng lại
+												button.btn.btn-outline-light(type='submit') Xác nhận
+							#unlockregistrationModal.modal.fade(tabindex='-1' role='dialog' aria-labelledby='unlockregistrationModal' aria-hidden='true')
+								.modal-dialog(role='document')
+									.modal-content.bg-danger
+										.modal-header
+											h5.modal-title Khóa
+											button.close(type='button' data-dismiss='modal' aria-label='Close')
+												span(aria-hidden='true') &times;
+										form(action="/approve/unapproved", method="post")
+											.modal-body
+												input(type="hidden", name="email")
+												p Bạn có chắc chắn muốn mở khóa đăng ký doanh nghiệp này không?
+											.modal-footer
+												button.btn.btn-outline-light(type='button' data-dismiss='modal') Đóng lại
+												button.btn.btn-outline-light(type='submit') Xác nhận
+					.card
+						.card-header
+							h4.card-title Danh sách doanh nghiệp đã được duyệt
+						.card-body
+							table.table.table-bordered.table-striped
+								thead
+									tr
+										th.text-center Tên doanh nghiệp
+										th.text-center Cập nhật lần cuối
+										th.text-center Thao tác
+								tbody
+									each registration in listRegistration 
+										if(registration.lock==1)
+											tr 
+												td.text-center=registration.name
+												td.text-center=moment(registration.updatedAt).format("DD/MM/YYYY, hh:mm:ss")
+												td.text-center
+													btn.btn-to-watch2.btn.btn-primary.btn-xs(style="margin-right: 15px;" data-email=registration.email) 
+														i.fas.fa-eye &nbsp&nbspXem
+													btn.btn-unlock.btn.btn-danger.btn-xs(data-email=registration.email)
+														i.fas.fa-unlock  &nbsp&nbspMở Khóa
+
+
+
+
+
+block script 
+	script(src="/js/approve/index.js") 

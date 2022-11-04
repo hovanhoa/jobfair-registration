@@ -1,0 +1,95 @@
+extends ../layout 
+
+block content 
+	section.content-header
+		.container-fluid
+			.row.mb-2
+				.col-sm-6
+					h1 QUẢN LÝ NGƯỜI DÙNG
+	section.content
+		.container-fluid
+			.row
+				.col-12
+					.card
+						.card-body
+							.row 
+								.col-12 
+									button.btn.btn-primary(type='button' data-toggle='modal' data-target='#addUserModal')
+										| Thêm mới
+									// Modal
+									#addUserModal.modal.fade(tabindex='-1' role='dialog' aria-labelledby='addUserModal' aria-hidden='true')
+										.modal-dialog(role='document')
+											.modal-content
+												.modal-header
+													h5.modal-title Thêm mới
+													button.close(type='button' data-dismiss='modal' aria-label='Close')
+														span(aria-hidden='true') &times;
+												form(action="/users/add", method="post")
+													.modal-body
+														.form-group
+															label Email
+															input.form-control(type='email' placeholder='Email' name='email')
+														.form-group
+															label Mật khẩu
+															input.form-control(type='password' placeholder='Mật khẩu' name='password')
+													.modal-footer
+														button.btn.btn-secondary(type='button' data-dismiss='modal') Đóng lại
+														button.btn.btn-primary(type='submit') Thêm mới
+							
+							.row
+								.col-12
+									table#tab-users.table.table-bordered.table-striped
+										thead
+											tr
+												th STT
+												th Email
+												th Cập nhật lần cuối
+												th Thao tác
+										tbody
+											each user, index in userList 
+												tr 
+													td=index + 1
+													td=user.email
+													td=moment(user.updatedAt).fromNow()
+													td.text-center
+														btn.btn-edit.btn.btn-primary.btn-xs(style="margin-right: 5px;") 
+															i.fas.fa-edit
+														btn.btn-delete.btn.btn-danger.btn-xs()
+															i.fas.fa-trash 
+
+								//- 	#editFacultyModal.modal.fade(tabindex='-1' role='dialog' aria-labelledby='editFacultyModal' aria-hidden='true')
+								//- 		.modal-dialog(role='document')
+								//- 			.modal-content
+								//- 				.modal-header
+								//- 					h5.modal-title Chỉnh sửa
+								//- 					button.close(type='button' data-dismiss='modal' aria-label='Close')
+								//- 						span(aria-hidden='true') &times;
+								//- 				form(action="/faculty/edit", method="post")
+								//- 					.modal-body
+								//- 						input(type="hidden", name="id")
+								//- 						.form-group
+								//- 							label Tên khoa
+								//- 							input.form-control(type='text', placeholder='Tên khoa', name='name')
+								//- 						.form-group
+								//- 							label Năm thành lập
+								//- 							input.form-control(type='text', placeholder='Năm thành lập', name='establishedYear')
+								//- 					.modal-footer
+								//- 						button.btn.btn-secondary(type='button' data-dismiss='modal') Đóng lại
+								//- 						button.btn.btn-primary(type='submit') Cập nhật
+
+								//- 	#deleteFacultyModal.modal.fade(tabindex='-1' role='dialog' aria-labelledby='deleteFacultyModal' aria-hidden='true')
+								//- 		.modal-dialog(role='document')
+								//- 			.modal-content.bg-danger
+								//- 				.modal-header
+								//- 					h5.modal-title Xóa
+								//- 					button.close(type='button' data-dismiss='modal' aria-label='Close')
+								//- 						span(aria-hidden='true') &times;
+								//- 				form(action="/faculty/delete", method="post")
+								//- 					.modal-body
+								//- 						input(type="hidden", name="id")
+								//- 						p Bạn có chắc chắn muốn xóa khoa này không?
+								//- 					.modal-footer
+								//- 						button.btn.btn-outline-light(type='button' data-dismiss='modal') Đóng lại
+								//- 						button.btn.btn-outline-light(type='submit') Xác nhận
+block script 
+	script(src="/js/users/index.js") 

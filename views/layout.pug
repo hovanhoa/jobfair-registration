@@ -1,0 +1,113 @@
+-
+	function formatNumber(x) {
+		return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+	}
+
+doctype html
+html(lang='en')
+	head
+		meta(charset='utf-8')
+		meta(name='viewport' content='width=device-width, initial-scale=1')
+		title Job Jair Registration
+		// Google Font: Source Sans Pro
+		link(rel='stylesheet' href='https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback')
+		// Font Awesome
+		link(rel='stylesheet' href='/plugins/fontawesome-free/css/all.min.css')
+		// DataTables
+		link(rel='stylesheet' href='/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css')
+		link(rel='stylesheet' href='/plugins/datatables-responsive/css/responsive.bootstrap4.min.css')
+		link(rel='stylesheet' href='/plugins/datatables-buttons/css/buttons.bootstrap4.min.css')
+		// Theme style
+		link(rel='stylesheet' href='/dist/css/adminlte.min.css')
+		block style
+	body.hold-transition.sidebar-mini
+		.wrapper
+			// Navbar
+			nav.main-header.navbar.navbar-expand.navbar-white.navbar-light
+				// Left navbar links
+				ul.navbar-nav
+					li.nav-item
+						a.nav-link(data-widget='pushmenu' href='#' role='button')
+							i.fas.fa-bars
+					li.nav-item.d-none.d-sm-inline-block
+						a.nav-link(href='/enterprise') Home
+					li.nav-item.d-none.d-sm-inline-block
+						a.nav-link(href='http://fb.com/hovanhoa') Contact
+				ul.navbar-nav.ml-auto
+					li.nav-item
+						li.nav-item.d-none.d-sm-inline-block
+						a.nav-link(href='/logout') Logout
+			// /.navbar
+			// Main Sidebar Container
+			aside.main-sidebar.sidebar-dark-primary.elevation-4
+				// Brand Logo
+				a.brand-link(href='/enterprise')
+					img.brand-image.img-circle.elevation-3(src='/dist/img/AdminLTELogo.png' alt='AdminLTE Logo' style='opacity: .8')
+					span.brand-text.font-weight-light Job Jair Registration
+
+
+				// Sidebar
+				.sidebar
+					// Sidebar Menu
+					nav.mt-2
+						ul.nav.nav-pills.nav-sidebar.flex-column(data-widget='treeview' role='menu' data-accordion='false')
+							li.nav-item
+								a.nav-link(href='/enterprise')
+									i.nav-icon.fas.fa-building
+									p
+										| Thông tin doanh nghiệp
+							li.nav-item
+								a.nav-link(href='/stall')
+									i.nav-icon.fas.fa-box
+									p
+										| Quản lý gian Hàng
+							li.nav-item
+								a.nav-link(href='/registration')
+									i.nav-icon.fas.fa-clipboard-check
+									p
+										| Đăng kí gian hàng
+
+							li.nav-item
+								a.nav-link(href='/approve')
+									i.nav-icon.fas.fa-vote-yea
+									p
+										| Phê duyệt đơn đăng kí
+					// /.sidebar-menu
+				// /.sidebar
+			// Content Wrapper. Contains page content
+			.content-wrapper
+				block content
+
+			footer.main-footer
+				.float-right.d-none.d-sm-block
+					b 	
+						a(href='https://adminlte.io') AdminLTE.io
+				strong Phát triển bởi đoàn thanh niên khoa khoa học và kỹ thuật máy tính
+				//- 	a(href='https://adminlte.io') AdminLTE.io
+				//- 	| .
+				//- | All rights reserved.
+			// Control Sidebar
+			aside.control-sidebar.control-sidebar-dark
+				// Control sidebar content goes here
+			// /.control-sidebar
+		// ./wrapper
+		// jQuery
+		script(src='/plugins/jquery/jquery.min.js')
+		// Bootstrap 4
+		script(src='/plugins/bootstrap/js/bootstrap.bundle.min.js')
+		// DataTables  & Plugins
+		script(src='/plugins/datatables/jquery.dataTables.min.js')
+		script(src='/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js')
+		script(src='/plugins/datatables-responsive/js/dataTables.responsive.min.js')
+		script(src='/plugins/datatables-responsive/js/responsive.bootstrap4.min.js')
+		script(src='/plugins/datatables-buttons/js/dataTables.buttons.min.js')
+		script(src='/plugins/datatables-buttons/js/buttons.bootstrap4.min.js')
+		script(src='/plugins/jszip/jszip.min.js')
+		script(src='/plugins/pdfmake/pdfmake.min.js')
+		script(src='/plugins/pdfmake/vfs_fonts.js')
+		script(src='/plugins/datatables-buttons/js/buttons.html5.min.js')
+		script(src='/plugins/datatables-buttons/js/buttons.print.min.js')
+		script(src='/plugins/datatables-buttons/js/buttons.colVis.min.js')
+		// AdminLTE App
+		script(src='/dist/js/adminlte.min.js')
+		block script

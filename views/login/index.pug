@@ -1,0 +1,56 @@
+doctype html
+html(lang='en')
+	head
+		meta(charset='utf-8')
+		meta(name='viewport' content='width=device-width, initial-scale=1')
+		title AdminLTE 3 | Log in
+		// Google Font: Source Sans Pro
+		link(rel='stylesheet' href='https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback')
+		// Font Awesome
+		link(rel='stylesheet' href='/plugins/fontawesome-free/css/all.min.css')
+		// icheck bootstrap
+		link(rel='stylesheet' href='/plugins/icheck-bootstrap/icheck-bootstrap.min.css')
+		// Theme style
+		link(rel='stylesheet' href='/dist/css/adminlte.min.css')
+	body.hold-transition.login-page
+		.login-box
+			.login-logo
+				a(href='/enterprise')
+					b BK
+					| Manager
+			// /.login-logo
+			.card
+				.card-body.login-card-body
+					if (message) 
+						p.login-box-msg(style='color: red')=message
+					else 
+						p.login-box-msg Đăng nhập vào hệ thống
+					form(action='/login', method='post')
+						.input-group.mb-3
+							input.form-control(type='email' placeholder='Email' name='email')
+							.input-group-append
+								.input-group-text
+									span.fas.fa-envelope
+						.input-group.mb-3
+							input.form-control(type='password' placeholder='Mật khẩu' name='password')
+							.input-group-append
+								.input-group-text
+									span.fas.fa-lock
+						.row
+							.col-7
+								a.btn.btn-outline-dark(href='/google' role='button' style='text-transform:none')
+									img(width='20px' style='margin-bottom:3px; margin-right:5px' alt='Google sign-in' src='https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Google_%22G%22_Logo.svg/512px-Google_%22G%22_Logo.svg.png')
+									| Login with Google
+
+							// /.col
+							.col-5
+								button.btn.btn-primary.btn-block(type='submit') Đăng nhập
+							// /.col
+				// /.login-card-body
+				// /.login-box
+				// jQuery
+				script(src='/plugins/jquery/jquery.min.js')
+				// Bootstrap 4
+				script(src='/plugins/bootstrap/js/bootstrap.bundle.min.js')
+				// AdminLTE App
+				script(src='/dist/js/adminlte.min.js')

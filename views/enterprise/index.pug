@@ -1,0 +1,141 @@
+extends ../layout 
+
+block content 
+	section.content-header  
+		.container-fluid
+			.row.mb-2
+				.col-sm-6
+					h1 THÔNG TIN DOANH NGHIỆP
+	section.content
+		.container-fluid
+			.row
+				.col-12
+					form(action="/enterprise/add", method="post")
+						.card-body
+							.row 
+								.col-8
+									.form-group
+										label Tên doanh nghiệp
+										input.form-control(type='text' placeholder='Tên doanh nghiệp' name='name' value=enterprise.name)
+								.col-4
+									.form-group
+										label Tên viết tắt
+										input.form-control(type='text' placeholder='Tên viết tắt' name='initName' value=enterprise.initName)
+							.row 
+								.col-8
+									.form-group
+										label Địa chỉ
+										input.form-control(type='text' placeholder='Địa chỉ' name='address' value=enterprise.address)
+								.col-4
+									.form-group
+										label Số lượng gian hàng đăng kí
+										input.form-control(type='text' placeholder='số lượng' name='numberstall' value=enterprise.numberstall)
+							.row
+								.col-4
+									.form-group
+										label Họ người đại diện
+										input.form-control(type='text' placeholder='Họ người đại diện' name='repFamilyName' value=enterprise.repFamilyName)
+								.col-4
+									.form-group
+										label Tên người đại diện
+										input.form-control(type='text' placeholder='Tên người đại diện' name='repGivenName' value=enterprise.repGivenName)
+								.col-4
+									.form-group
+										label Danh xưng
+										input.form-control(type='text' placeholder='Danh xưng' name='appellation' value=enterprise.appellation)
+							.row 
+								.col-4
+									.form-group
+										label Số điện thoại
+										input.form-control(type='text' placeholder='Số điện thoại' name='phoneNumber' value=enterprise.phoneNumber)
+								.col-4
+									.form-group
+										label Email
+										input.form-control(type='text' placeholder='Email' name='email' value = email readonly) 
+						.row 
+							.col-3 
+							.col-3
+								.modal-footer
+									button.text-center.btn-lg.btn-primary.btn-toastr(type='submit') Cập nhật    
+							.col-3 
+						//- btn  
+							//- .row
+							//- 	.col-12
+							//- 		table#tab-faculty.table.table-bordered.table-striped
+							//- 			thead
+							//- 				tr
+							//- 					th Mã số doanh nghiệp
+							//- 					th Tên doanh nghiệp
+							//- 					th Tên viết tắt
+							//- 					th Địa chỉ
+							//- 					th Họ người đại diện
+							//- 					th Tên người đại diện
+							//- 					th Danh xưng 
+							//- 					th số điện thoại
+							//- 					th Email
+							//- 					th Cập nhật lần cuối
+							//- 					th Thao tác
+							//- 			tbody
+							//- 				each enterprise in enterpriseList 
+							//- 					tr 
+							//- 						td=enterprise.id
+							//- 						td=enterprise.name
+							//- 						td=enterprise.initName
+							//- 						td=enterprise.address 
+							//- 						td=enterprise.repFamilyName 
+							//- 						td=enterprise.repGivenName
+							//- 						td=enterprise.appellation 
+							//- 						td=enterprise.phoneNumber
+							//- 						td=enterprise.email
+							//- 						td=moment(enterprise.updatedAt).fromNow()
+							//- 						td.text-center
+							//- 							btn.btn-edit.btn.btn-primary.btn-xs(style="margin-right: 5px;", data-id=enterprise.id, data-name=enterprise.name, data-initName=enterprise.initName,
+							//- 							data-address=enterprise.address, data-repFamilyName=enterprise.repFamilyName, data-repGivenName=enterprise.repGivenName,
+							//- 							data-appellation=enterprise.appellation, data-phoneNumber=enterprise.phoneNumber, data-email=enterprise.email) 
+							//- 								i.fas.fa-edit
+							//- 							btn.btn-delete.btn.btn-danger.btn-xs(data-id=enterprise.id)
+							//- 								i.fas.fa-trash 
+
+	//- 								#editFacultyModal.modal.fade(tabindex='-1' role='dialog' aria-labelledby='editFacultyModal' aria-hidden='true')
+	//- 									.modal-dialog(role='document')
+	//- 										.modal-content
+	//- 											.modal-header
+	//- 												h5.modal-title Chỉnh sửa
+	//- 												button.close(type='button' data-dismiss='modal' aria-label='Close')
+	//- 													span(aria-hidden='true') &times;
+	//- 											form(action="/faculty/edit", method="post")
+	//- 												.modal-body
+	//- 													input(type="hidden", name="id")
+	//- 													.form-group
+	//- 														label Tên khoa
+	//- 														input.form-control(type='text', placeholder='Tên khoa', name='name')
+	//- 													.form-group
+	//- 														label Năm thành lập
+	//- 														input.form-control(type='text', placeholder='Năm thành lập', name='establishedYear')
+	//- 												.modal-footer
+	//- 													button.btn.btn-secondary(type='button' data-dismiss='modal') Đóng lại
+	//- 													button.btn.btn-primary(type='submit') Cập nhật
+
+	//- 								#deleteFacultyModal.modal.fade(tabindex='-1' role='dialog' aria-labelledby='deleteFacultyModal' aria-hidden='true')
+	//- 									.modal-dialog(role='document')
+	//- 										.modal-content.bg-danger
+	//- 											.modal-header
+	//- 												h5.modal-title Xóa
+	//- 												button.close(type='button' data-dismiss='modal' aria-label='Close')
+	//- 													span(aria-hidden='true') &times;
+	//- 											form(action="/faculty/delete", method="post")
+	//- 												.modal-body
+	//- 													input(type="hidden", name="id")
+	//- 													p Bạn có chắc chắn muốn xóa khoa này không?
+	//- 												.modal-footer
+	//- 													button.btn.btn-outline-light(type='button' data-dismiss='modal') Đóng lại
+	//- 													button.btn.btn-outline-light(type='submit') Xác nhận
+
+block style 
+	link(rel="stylesheet", href="/plugins/toastr/toastr.css")
+	link(rel="stylesheet", href="/plugins/toastr/toastr.min.css")
+
+block script 
+	script(src="/plugins/toastr/toastr.min.js")
+	script(src="/js/enterprise/enterprise.js") 
+

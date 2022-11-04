@@ -1,0 +1,80 @@
+extends ../layout 
+
+block content 
+	section.content-header  
+		.container-fluid
+			.row.mb-2
+				.col-sm-6
+					h1 THÔNG TIN ĐĂNG KÍ
+	section.content
+		.container-fluid
+			.row
+				.col-12
+					.card
+						.card-body
+							.row 
+								.col-3
+									if(lock == 0)
+										form(action="/registration/add", method="post")
+											.modal-body
+												.form-group
+													label Gian hàng
+													select#stall-select2.form-control.select2(name="id[]", style="width: 100%;" multiple="multiple")
+														each stall in stallList 
+															option(value=stall.id)=stall.name
+												button.btn.btn-primary.btn-toastr(type='submit') Xác nhận chỉnh sửa	
+									//- else 
+									//- 	h3 Đơn đăng kí đã được phê duyệt				
+									table.table.table-bordered.table-striped(style="margin-top:15px")
+										thead
+											tr
+												th.text-center Độ ưu tiên
+												//- th Email đăng kí
+												th.text-center Gian hàng
+												//- th Cập nhật lần cuối
+												//- th Thao tác
+										tbody
+											each registration in registrationList 
+													tr 
+														td.text-center=registration.priorityNumber 	
+														//- td=registration.enterprise.email
+														td.text-center=registration.stall.name
+														//- td=moment(registration.updatedAt).fromNow()
+														//- td.text-center
+														//- 	btn.btn-edit.btn.btn-primary.btn-xs(style="margin-right: 5px;") 
+														//- 		i.fas.fa-edit
+														//- 	btn.btn-delete.btn.btn-danger.btn-xs
+														//- 		i.fas.fa-trash 
+								.col-9 
+									canvas#myCanvas(width='648' height='237' style='border:1px solid #d3d3d3; zoom: 1.38; margin-top: 30px; width: 100%;')
+									//- canvas#space(width='300' height='300')
+									.row 
+										.col-1
+											canvas#canvas1(width='46' height='36' style='border:1px solid #000000; margin-right: 10px;') 
+											
+										.col-3
+											p Giá tiền 7.000.000 VND	
+										.col-1
+											canvas#canvas3(width='46' height='36' style='border:1px solid #000000;  margin-right: 10px;')
+										p Đã đăng kí
+									.row 
+										.col-1
+											canvas#canvas2(width='46' height='36' style='border:1px solid #000000;  margin-right: 10px;')
+										.col-3
+											p Giá tiền 8.000.000 VND
+								
+											
+
+
+block style 
+	link(rel="stylesheet", href="/plugins/select2/css/select2.min.css")
+	link(rel="stylesheet", href="/plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css")
+	link(rel="stylesheet", href="/plugins/toastr/toastr.css")
+	link(rel="stylesheet", href="/plugins/toastr/toastr.min.css")
+
+block script 
+	script(src="/plugins/select2/js/select2.full.min.js")
+	script(src="/plugins/toastr/toastr.min.js")
+	script(src="/js/registration/index.js") 
+	script(src="/js/registration/canvas.js") 
+

@@ -1,0 +1,149 @@
+extends ../layout 
+
+
+block content 
+	section.content-header  
+		.container-fluid
+			.row.mb-2
+				.col-sm-6
+					h1 THÔNG TIN GIAN HÀNG
+	section.content
+		.container-fluid
+			.row
+				.col-12
+					.card
+						.card-body
+							.row 
+								.col-12 
+									button.btn.btn-primary(type='button' data-toggle='modal' data-target='#addstallModal')
+										| Thêm mới
+									// Modal
+									#addstallModal.modal.fade(tabindex='-1' role='dialog' aria-labelledby='addstallModal' aria-hidden='true')
+										.modal-dialog(role='document')
+											.modal-content
+												.modal-header
+													h5.modal-title Thêm mới
+													button.close(type='button' data-dismiss='modal' aria-label='Close')
+														span(aria-hidden='true') &times;
+												form(action="/stall/add", method="post")
+													.modal-body
+														.form-group
+															label Tên gian hàng
+															input.form-control(type='text' placeholder='Tên gian hàng' name='name')
+														.form-group
+															label Giá
+															input.form-control(type='text' placeholder='Giá' name='price')
+														.form-group
+															label Tọa độ x
+															input.form-control(type='text' placeholder='Tọa độ x' name='position_x')
+														.form-group
+															label Tọa độ y
+															input.form-control(type='text' placeholder='Tọa độ y' name='position_y')
+														.form-group
+															label Chiều dài
+															input.form-control(type='text' placeholder='Chiều dài' name='long')
+														.form-group
+															label Chiều rộng
+															input.form-control(type='text' placeholder='Chiều rộng' name='width')
+															
+													.modal-footer
+														button.btn.btn-secondary(type='button' data-dismiss='modal') Đóng lại
+														button.btn.btn-primary.btn-toastr(type='submit') Thêm mới						
+							.row
+								.col-12
+									table#tab-stall.table.table-bordered.table-striped
+										thead
+											tr
+												th.text-center Tên gian hàng
+												th.text-center Đăng kí
+												th.text-center Giá tiền
+												th.text-center Tọa độ x
+												th.text-center Tọa độ y 
+												th.text-center Chiều dài 
+												th.text-center Chiều rộng 
+												th.text-center Cập nhật lần cuối
+												th.text-center Thao tác
+										tbody
+											each stall, index in stallList 
+												tr 
+													td.text-center=stall.name
+													td.text-center
+														if(stall.Registered==1)
+															btn.btn-lg.fas.fa-check
+														else
+															btn.btn-lg.fas.fa-times
+														
+													td.text-right=formatNumber(stall.price) +" VNĐ"
+													td.text-center=stall.position_x
+													td.text-center=stall.position_y 
+													td.text-center=stall.long+"m" 
+													td.text-center=stall.width +"m"
+													td.text-center=moment(stall.updatedAt).fromNow()
+													td.text-center
+														btn.btn-edit.btn.btn-primary.btn-xs(style="margin-right: 5px;", data-id=stall.id, data-name=stall.name,
+														data-price=stall.price, data-position_x=stall.position_x,
+														 data-position_y=stall.position_y,  data-long=stall.long, data-width=stall.width, data-Registered=stall.Registered) 
+															i.fas.fa-edit
+														btn.btn-delete.btn.btn-danger.btn-xs(data-id=stall.id)
+															i.fas.fa-trash 
+
+
+									#editstallmodal.modal.fade(tabindex='-1' role='dialog' aria-labelledby='editstallmodal' aria-hidden='true')
+										.modal-dialog(role='document')
+											.modal-content
+												.modal-header
+													h5.modal-title Chỉnh sửa
+													button.close(type='button' data-dismiss='modal' aria-label='Close')
+														span(aria-hidden='true') &times;
+												form(action="/stall/edit", method="post")
+													.modal-body
+														input(type="hidden", name="id")
+														.form-group
+															label Tên gian hàng
+															input.form-control(type='text' placeholder='Gian hàng' name='name')
+														.form-group
+															label(style="margin-right: 30px;") Đăng kí
+															input(type='checkbox' name='Registered' value="0" hidden)
+															input(type='checkbox' name='Registered' value="1" style="margin-right: 5px; zoom:1;")
+															label Đã đăng kí
+														.form-group
+															label Giá
+															input.form-control(type='text' placeholder='Giá' name='price')
+														.form-group
+															label Tọa độ x
+															input.form-control(type='text' placeholder='Tọa độ x' name='position_x')
+														.form-group
+															label Tọa độ y
+															input.form-control(type='text' placeholder='Tọa độ y' name='position_y')
+														.form-group
+															label Chiều dài
+															input.form-control(type='text' placeholder='Chiều dài' name='long')
+														.form-group
+															label Chiều rộng
+															input.form-control(type='text' placeholder='Chiều rộng' name='width')
+													.modal-footer
+														button.btn.btn-secondary(type='button' data-dismiss='modal') Đóng lại
+														button.btn.btn-primary(type='submit') Cập nhật
+									#deletestallModal.modal.fade(tabindex='-1' role='dialog' aria-labelledby='deletestallModal' aria-hidden='true')
+										.modal-dialog(role='document')
+											.modal-content.bg-danger
+												.modal-header
+													h5.modal-title Xóa
+													button.close(type='button' data-dismiss='modal' aria-label='Close')
+														span(aria-hidden='true') &times;
+												form(action="/stall/delete", method="post")
+													.modal-body
+														input(type="hidden", name="id")
+														p Bạn có chắc chắn muốn xóa gian hàng này không?
+													.modal-footer
+														button.btn.btn-outline-light(type='button' data-dismiss='modal') Đóng lại
+														button.btn.btn-outline-light(type='submit') Xác nhận
+
+block style 
+	link(rel="stylesheet", href="/plugins/select2/css/select2.min.css")
+	link(rel="stylesheet", href="/plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css")
+	link(rel="stylesheet", href="/plugins/toastr/toastr.css")
+	link(rel="stylesheet", href="/plugins/toastr/toastr.min.css")
+block script 
+	script(src="/plugins/toastr/toastr.min.js")
+	script(src="/js/stall/index.js") 
